@@ -5,7 +5,7 @@ print("  /----\\     Finance Track")
 print(" /      \\")
 print("/        \\")
 
-print("Welcome to Finance Track.")
+print("Welcome to Finance Track by Aryaman!")
 
 config = {
   "apiKey": "AIzaSyDQyY4u2jYns9rY6QiYJOZirUFZUbvy4XE",
