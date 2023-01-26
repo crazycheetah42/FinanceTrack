@@ -47,7 +47,11 @@ def display_income():
             print(f"{income_name} - {income_amount}")
 
 while True:
-    print("Finance Tracker App")
+    print("    /\\")
+    print("   /  \\")
+    print("  /----\\     Finance Tracker")
+    print(" /      \\")
+    print("/        \\")
     print("1. Add Expense")
     print("2. Add Income")
     print("3. View Expenses")
