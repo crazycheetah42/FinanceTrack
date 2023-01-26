@@ -1,59 +1,74 @@
-import pyrebase
-print("    /\\")
-print("   /  \\")
-print("  /----\\     Finance Track")
-print(" /      \\")
-print("/        \\")
+import os
 
-print("Welcome to Finance Track by Aryaman!")
+# Function to add an expense
+def add_expense(expense_name, expense_amount):
+    with open("expenses.txt", "a") as file:
+        file.write(f"{expense_name},{expense_amount}\n")
+    print(f"Expense {expense_name} of {expense_amount} added.")
 
-config = {
-  "apiKey": "AIzaSyDQyY4u2jYns9rY6QiYJOZirUFZUbvy4XE",
-  "authDomain": "financetrack-3279c.firebaseapp.com",
-  "databaseURL": "https://financetrack-3279c.firebaseapp.com",
-  "storageBucket": "financetrack-3279c.appspot.com"
-}
-firebase = pyrebase.initialize_app(config)
+# Function to display expenses
+def display_expenses():
+    with open("expenses.txt", "r") as file:
+        expenses = file.readlines()
+    if not expenses:
+        print("No expenses found.")
+    else:
+        print("Expenses:")
+        for expense in expenses:
+            expense_name, expense_amount = expense.strip().split(",")
+            print(f"{expense_name} - {expense_amount}")
 
-db = firebase.database()
+# Function to remove an expense
+def remove_expense(expense_name):
+    with open("expenses.txt", "r") as file:
+        expenses = file.readlines()
+    with open("expenses.txt", "w") as file:
+        for expense in expenses:
+            if expense_name not in expense:
+                file.write(expense)
+    print(f"Expense {expense_name} removed.")
+    
+# Function to add an income
+def add_income(income_name, income_amount):
+    with open("income.txt", "a") as file:
+        file.write(f"{income_name},{income_amount}\n")
+    print(f"Income {income_name} of {income_amount} added.")
 
-def add_expense(description, amount):
-    expense = {"description": description, "amount": amount}
-    db.child("expenses").push(expense)
+# Function to display income
+def display_income():
+    with open("income.txt", "r") as file:
+        income = file.readlines()
+    if not income:
+        print("No income found.")
+    else:
+        print("Income:")
+        for inc in income:
+            income_name, income_amount = inc.strip().split(",")
+            print(f"{income_name} - {income_amount}")
 
-def view_expenses():
-    total_expenses = 0
-    expenses = db.child("expenses").get()
-    for expense in expenses.each():
-        print(expense.val())
-        total_expenses += expense.val()['amount']
-    print("Total Expenses: $" + str(total_expenses))
+while True:
+    print("Finance Tracker App")
+    print("1. Add Expense")
+    print("2. Add Income")
+    print("3. View Expenses")
+    print("4. View Income")
+    print("5. Exit")
+    choice = input("Enter your choice: ")
 
-def add_income(description, amount):
-    income = {"description": description, "amount": amount}
-    db.child("income").push(income)
-
-def view_income():
-    total_income = 0
-    income = db.child("income").get()
-    for inc in income.each():
-        print(inc.val())
-        total_income += inc.val()['amount']
-    print("Total Income: $" + str(total_income))
-
-def view_balance():
-    expenses = db.child("expenses").get()
-    total_expenses = 0
-    for expense in expenses.each():
-        total_expenses += expense.val()['amount']
-    income = db.child("income").get()
-    total_income = 0
-    for inc in income.each():
-        total_income += inc.val()['amount']
-    balance = total_income - total_expenses
-    print("Balance: $" + str(balance))
-
-
-view_expenses()
-view_income()
-view_balance()
+    if choice == '1':
+        expense_name = input("Enter expense name: ")
+        expense_amount = input("Enter expense amount: ")
+        add_expense(expense_name, float(expense_amount))
+    elif choice == '2':
+        income_name = input("Enter income name: ")
+        income_amount = input("Enter income amount: ")
+        add_income(income_name, float(income_amount))
+    elif choice == '3':
+        print(display_expenses())
+    elif choice == '4':
+        print(display_income())
+    elif choice == '5':
+        print("Exiting the app...")
+        break
+    else:
+        print("Invalid choice. Please try again.")
