@@ -10,12 +10,15 @@ def display_expenses():
         expenses = file.readlines()
     if not expenses:
         print("No expenses found.")
+        print("Press Enter to continue...")
+        input()
     else:
         print("Expenses:")
         for expense in expenses:
             expense_name, expense_amount = expense.strip().split(",")
             print(f"{expense_name} - {expense_amount}")
-
+        print("Press Enter to continue...")
+        input()
 def remove_expense(expense_name):
     with open("expenses.txt", "r") as file:
         expenses = file.readlines()
