@@ -1,12 +1,10 @@
 import os
 
-# Function to add an expense
 def add_expense(expense_name, expense_amount):
     with open("expenses.txt", "a") as file:
         file.write(f"{expense_name},{expense_amount}\n")
     print(f"Expense {expense_name} of {expense_amount} added.")
 
-# Function to display expenses
 def display_expenses():
     with open("expenses.txt", "r") as file:
         expenses = file.readlines()
@@ -18,7 +16,6 @@ def display_expenses():
             expense_name, expense_amount = expense.strip().split(",")
             print(f"{expense_name} - {expense_amount}")
 
-# Function to remove an expense
 def remove_expense(expense_name):
     with open("expenses.txt", "r") as file:
         expenses = file.readlines()
@@ -28,13 +25,11 @@ def remove_expense(expense_name):
                 file.write(expense)
     print(f"Expense {expense_name} removed.")
     
-# Function to add an income
 def add_income(income_name, income_amount):
     with open("income.txt", "a") as file:
         file.write(f"{income_name},{income_amount}\n")
     print(f"Income {income_name} of {income_amount} added.")
 
-# Function to display income
 def display_income():
     with open("income.txt", "r") as file:
         income = file.readlines()
